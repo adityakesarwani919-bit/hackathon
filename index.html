@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vitaline · Patient Case</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#07040f;--void2:#0d0a1c;--surface:rgba(255,255,255,.05);--surface2:rgba(255,255,255,.08);
+  --edge:rgba(255,255,255,.10);--edge-strong:rgba(255,255,255,.20);
+  --ink:#f7f5ff;--dim:#a89fc9;--dim2:#786e9e;
+  --violet:#8b5cf6;--violet2:#6d28d9;--cyan:#22e0ff;--hot:#ff2f92;--hot2:#ff7ac2;
+  --mint:#2ee6a6;--amber:#ffb43d;--danger:#ff4d6d;
+  --grad-main:linear-gradient(135deg,#8b5cf6 0%,#ff2f92 100%);
+  --grad-cool:linear-gradient(135deg,#22e0ff 0%,#8b5cf6 100%);
+  --grad-mint:linear-gradient(135deg,#2ee6a6 0%,#22e0ff 100%);
+  --shadow-glow:0 0 0 1px var(--edge),0 20px 60px rgba(139,92,246,.18);
+  --blue:var(--violet);--blue2:var(--violet2);--teal:var(--mint);--cyan-old:var(--cyan);
+  --line:var(--edge);--bg:var(--void);--card:var(--surface);--success:var(--mint);--violet-old:var(--violet);
+}
+*{box-sizing:border-box}
+::selection{background:var(--hot);color:#fff}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--void);position:relative;min-height:100vh;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Sora,Inter,ui-sans-serif,system-ui,sans-serif}
+body:before{content:"";position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(circle at 12% 8%,rgba(139,92,246,.35),transparent 40%),
+  radial-gradient(circle at 88% 18%,rgba(255,47,146,.25),transparent 42%),
+  radial-gradient(circle at 30% 92%,rgba(34,224,255,.16),transparent 45%),
+  var(--void);
+  animation:driftGlow 22s ease-in-out infinite alternate;
+}
+body:after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1.3px);background-size:26px 26px;
+  mask-image:radial-gradient(circle at 50% 30%,#000 0%,transparent 75%)
+}
+@keyframes driftGlow{0%{filter:hue-rotate(0deg) brightness(1)}100%{filter:hue-rotate(18deg) brightness(1.08)}}
+@media (prefers-reduced-motion:reduce){body:before{animation:none}}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+input,select,textarea{color:var(--ink)}
+.hidden{display:none!important}
+.app{min-height:100vh}
+.landing{background:transparent}
+.container{max-width:1180px;margin:auto;padding:0 24px}
+
+/* buttons */
+.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:700;transition:.2s cubic-bezier(.2,.8,.2,1);font-family:Inter,sans-serif;letter-spacing:.1px}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:var(--grad-main);color:#fff;box-shadow:0 8px 24px rgba(255,47,146,.28),0 4px 14px rgba(139,92,246,.3)}
+.btn-primary:hover{box-shadow:0 12px 34px rgba(255,47,146,.4),0 6px 18px rgba(139,92,246,.4)}
+.btn-secondary{background:var(--surface2);color:var(--ink);border:1px solid var(--edge-strong);backdrop-filter:blur(10px)}
+.btn-secondary:hover{background:rgba(255,255,255,.12);border-color:var(--cyan)}
+.btn-ghost{background:transparent;border:1px solid var(--edge);color:var(--dim)}
+.btn-ghost:hover{border-color:var(--edge-strong);color:var(--ink);background:var(--surface)}
+
+/* topbar / logo */
+.topbar{height:80px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--edge);background:rgba(7,4,15,.6);backdrop-filter:blur(18px);position:sticky;top:0;z-index:20}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.4px;font-family:Sora,sans-serif}
+.logo-mark{width:38px;height:38px;border-radius:12px;background:var(--grad-main);display:grid;place-items:center;color:#fff;font-weight:900;box-shadow:0 6px 20px rgba(255,47,146,.4)}
+.logo small{display:block;color:var(--dim);font-weight:600;font-size:10px;letter-spacing:2px}
+.navlinks{display:flex;gap:30px;color:var(--dim);font-size:14px}
+.navlinks a{cursor:pointer;transition:.15s}
+.navlinks a:hover{color:var(--cyan)}
+
+/* hero */
+.hero{padding:100px 0 90px;display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:center;position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--surface2);border:1px solid var(--edge-strong);color:var(--cyan);font-size:12px;font-weight:700}
+.hero h1{font-size:60px;line-height:1.02;letter-spacing:-2.5px;margin:20px 0;color:var(--ink);font-weight:800}
+.hero h1 span{background:var(--grad-main);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:18px;line-height:1.7;color:var(--dim);max-width:600px}
+.actions{display:flex;gap:14px;margin-top:30px}
+.hero-card{background:var(--surface);border:1px solid var(--edge);border-radius:26px;padding:26px;box-shadow:var(--shadow-glow);backdrop-filter:blur(20px);position:relative;overflow:hidden}
+.hero-card:before{content:"";position:absolute;left:-40px;top:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(34,224,255,.25),transparent 70%)}
+.mini-top{display:flex;justify-content:space-between;align-items:center;position:relative}
+.mini-stat{font-size:12px;color:var(--dim)}
+.chart{height:190px;margin-top:22px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.03),transparent);position:relative;overflow:hidden;border:1px solid var(--edge)}
+.bars{position:absolute;inset:25px;display:flex;align-items:end;gap:12px}
+.bar{flex:1;background:var(--grad-cool);border-radius:8px 8px 3px 3px;box-shadow:0 0 16px rgba(34,224,255,.35)}
+.features{padding:70px 0 100px}
+.section-title{text-align:center;max-width:650px;margin:0 auto 40px}
+.section-title h2{font-size:36px;margin:0 0 12px;color:var(--ink);font-weight:800}
+.section-title p{color:var(--dim)}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feature{background:var(--surface);border:1px solid var(--edge);padding:28px;border-radius:20px;transition:.25s}
+.feature:hover{transform:translateY(-6px);border-color:var(--edge-strong);box-shadow:0 20px 45px rgba(139,92,246,.2)}
+.feature-icon{width:44px;height:44px;border-radius:13px;background:var(--grad-main);color:#fff;display:grid;place-items:center;font-weight:900;margin-bottom:18px;box-shadow:0 8px 20px rgba(255,47,146,.3)}
+.feature h3{margin:0 0 9px;color:var(--ink)}
+.feature p{color:var(--dim);line-height:1.6;margin:0}
+
+/* login */
+.login{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:var(--void)}
+.login-info{background:radial-gradient(circle at 20% 20%,rgba(139,92,246,.5),transparent 55%),radial-gradient(circle at 80% 80%,rgba(255,47,146,.35),transparent 55%),#0b0715;color:#fff;padding:70px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.login-info:before,.login-info:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.14);border-radius:50%}
+.login-info:before{width:500px;height:500px;right:-230px;top:-130px}
+.login-info:after{width:300px;height:300px;right:-90px;bottom:-130px}
+.login-info h1{font-size:48px;line-height:1.05;margin:24px 0 16px;font-weight:800}
+.login-info p{color:#d9c9ff;line-height:1.7;max-width:500px}
+.login-card-wrap{display:grid;place-items:center;padding:30px}
+.login-card{width:min(430px,100%);background:var(--surface);border:1px solid var(--edge);border-radius:22px;padding:34px;box-shadow:var(--shadow-glow);backdrop-filter:blur(20px)}
+.login-card h2{margin:0 0 8px;color:var(--ink)}
+.login-card .sub{color:var(--dim);font-size:14px;margin-bottom:26px}
+
+/* fields */
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.field label{font-size:13px;font-weight:700;color:var(--dim)}
+.field input,.field select,.field textarea{border:1px solid var(--edge);border-radius:11px;padding:11px 13px;outline:none;background:rgba(255,255,255,.03);color:var(--ink)}
+.field input::placeholder,.field textarea::placeholder{color:var(--dim2)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,224,255,.18)}
+.field textarea{min-height:110px;resize:vertical}
+.field select option{background:#0d0a1c;color:var(--ink)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.remember{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim);margin:8px 0 18px}
+.demo{width:100%;margin-top:10px}
+
+/* shell / sidebar */
+.shell{display:flex;min-height:100vh}
+.sidebar{width:250px;background:rgba(13,10,28,.7);backdrop-filter:blur(20px);border-right:1px solid var(--edge);padding:22px 14px;position:fixed;inset:0 auto 0 0;z-index:10}
+.side-nav{margin-top:38px;display:grid;gap:6px}
+.side-nav button{border:0;background:transparent;text-align:left;padding:13px 14px;border-radius:12px;color:var(--dim);font-weight:650;transition:.15s;position:relative}
+.side-nav button.active,.side-nav button:hover{background:var(--surface2);color:var(--ink)}
+.side-nav button.active{box-shadow:inset 3px 0 0 var(--hot);color:#fff}
+.profile{position:absolute;bottom:20px;left:16px;right:16px;border-top:1px solid var(--edge);padding-top:16px;display:flex;gap:10px;align-items:center}
+.avatar{width:37px;height:37px;border-radius:50%;background:var(--grad-cool);color:#04121a;display:grid;place-items:center;font-weight:800}
+.profile small{display:block;color:var(--dim)}
+
+.main{margin-left:250px;flex:1}
+.header{height:74px;background:rgba(7,4,15,.55);backdrop-filter:blur(18px);border-bottom:1px solid var(--edge);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:5}
+.search{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.04);border:1px solid var(--edge);border-radius:11px;padding:9px 13px;width:330px;color:var(--dim)}
+.search input{border:0;outline:0;background:transparent;width:100%;color:var(--ink)}
+.content{padding:30px}
+.page-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:14px}
+.page-head h1{font-size:29px;margin:0 0 5px;letter-spacing:-1px;color:var(--ink);font-weight:800;font-family:Sora,sans-serif}
+.page-head p{margin:0;color:var(--dim);font-size:14px}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{background:var(--surface);border:1px solid var(--edge);border-radius:18px;padding:20px;position:relative;overflow:hidden;transition:.2s}
+.stat:hover{transform:translateY(-4px);border-color:var(--edge-strong);box-shadow:0 16px 34px rgba(139,92,246,.22)}
+.stat:after{content:"";position:absolute;width:80px;height:80px;border-radius:50%;right:-25px;top:-25px;background:var(--grad-main);opacity:.18;filter:blur(4px)}
+.stat .label{font-size:11.5px;color:var(--dim);letter-spacing:.6px;font-weight:700}
+.stat .num{font-size:31px;font-weight:800;margin-top:8px;color:var(--ink);font-family:Sora,sans-serif}
+.stat .delta{font-size:12px;color:var(--mint);margin-top:6px;font-weight:600}
+
+.grid2{display:grid;grid-template-columns:1.45fr .8fr;gap:18px;margin-top:20px}
+.panel{background:var(--surface);border:1px solid var(--edge);border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:.2s}
+.panel:hover{border-color:var(--edge-strong)}
+.panel h3{margin:0 0 18px;font-size:16px;color:var(--ink);font-family:Sora,sans-serif}
+.table-wrap{overflow:auto}
+.table{width:100%;border-collapse:collapse;font-size:13px}
+.table th{text-align:left;color:var(--dim2);font-weight:700;background:rgba(255,255,255,.02)}
+.table th,.table td{padding:13px 11px;border-bottom:1px solid var(--edge);white-space:nowrap;color:var(--ink)}
+.table tbody tr{transition:background .15s}
+.table tbody tr:hover{background:rgba(139,92,246,.08)}
+.status{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.2px}
+.status.green{background:rgba(46,230,166,.14);color:var(--mint)}
+.status.orange{background:rgba(255,180,61,.14);color:var(--amber)}
+.quick{display:grid;gap:11px}
+.quick button{padding:14px;border:1px solid var(--edge);background:rgba(255,255,255,.02);border-radius:13px;text-align:left;font-weight:700;color:var(--ink);transition:.18s;display:flex;justify-content:space-between;align-items:center}
+.quick button:hover{border-color:var(--cyan);background:rgba(34,224,255,.06);transform:translateX(3px)}
+.activity{display:grid;gap:16px}
+.activity-item{display:flex;gap:11px;font-size:13px;color:var(--ink)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--hot);margin-top:5px;box-shadow:0 0 8px var(--hot)}
+.muted{color:var(--dim)}
+
+/* forms */
+.form-panel{background:var(--surface);border:1px solid var(--edge);border-radius:18px;padding:25px;margin-bottom:16px}
+.form-panel h3{margin:0 0 18px;color:var(--ink);font-family:Sora,sans-serif}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 18px}
+.full{grid-column:1/-1}
+.stepper{display:flex;gap:8px;margin-bottom:22px;overflow:auto}
+.step{padding:9px 14px;background:rgba(255,255,255,.04);border:1px solid var(--edge);border-radius:999px;font-size:12px;font-weight:700;color:var(--dim);white-space:nowrap}
+.step.active{background:rgba(139,92,246,.18);border-color:var(--violet);color:#d9c9ff;box-shadow:0 4px 14px rgba(139,92,246,.25)}
+.form-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}
+
+/* patient profile */
+.patient-header{display:flex;justify-content:space-between;align-items:center;background:var(--surface);border:1px solid var(--edge);padding:22px;border-radius:18px;flex-wrap:wrap;gap:14px}
+.patient-main{display:flex;align-items:center;gap:16px}
+.big-avatar{width:60px;height:60px;border-radius:18px;background:var(--grad-main);color:#fff;display:grid;place-items:center;font-weight:900;font-size:21px;box-shadow:0 10px 26px rgba(255,47,146,.32)}
+.tabs{display:flex;gap:24px;border-bottom:1px solid var(--edge);margin-top:22px;overflow:auto}
+.tabs button{border:0;background:none;padding:14px 2px;color:var(--dim);font-weight:700;white-space:nowrap}
+.tabs button.active{color:var(--cyan);border-bottom:2px solid var(--cyan)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.info-box{background:var(--surface);border:1px solid var(--edge);border-radius:15px;padding:17px}
+.info-box small{color:var(--dim)}
+.info-box strong{display:block;margin-top:7px;color:var(--ink)}
+
+/* toast */
+.toast{position:fixed;right:25px;bottom:25px;background:var(--grad-main);color:#fff;padding:14px 19px;border-radius:12px;box-shadow:0 15px 40px rgba(255,47,146,.35);z-index:99;font-weight:700;animation:toastIn .3s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes toastIn{from{transform:translateY(16px) scale(.95);opacity:0}to{transform:none;opacity:1}}
+
+/* report */
+.report{max-width:850px;margin:auto;background:#fff;color:#172033;border:1px solid #e7ebf2;padding:45px;border-radius:14px}
+.report-head{border-bottom:2px solid #172033;padding-bottom:18px;margin-bottom:25px;display:flex;justify-content:space-between}
+.report .logo-mark{box-shadow:none}
+.report h2{margin:0}
+.report-section{margin:22px 0}
+.report-section h4{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.7px;color:#526071}
+.report-section p{line-height:1.65;margin:0;color:#303949}
+.report-actions{max-width:850px;margin:15px auto;display:flex;justify-content:flex-end;gap:10px}
+
+/* scrollbar */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--edge-strong);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:var(--violet)}
+
+/* focus visibility */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:35px}
+  .login{grid-template-columns:1fr}
+  .login-info{display:none}
+  .feature-grid,.stats,.cards{grid-template-columns:1fr 1fr}
+  .grid2{grid-template-columns:1fr}
+  .sidebar{width:74px}
+  .sidebar .logo span,.sidebar .side-nav span,.profile div:not(.avatar){display:none}
+  .side-nav button{text-align:center}
+  .main{margin-left:74px}
+}
+@media(max-width:620px){
+  .navlinks{display:none}
+  .hero h1{font-size:40px}
+  .feature-grid,.stats,.cards,.two,.form-grid{grid-template-columns:1fr}
+  .content{padding:18px}
+  .header{padding:0 15px}
+  .search{width:180px}
+  .sidebar{width:0;padding:0;overflow:hidden;border:0}
+  .main{margin-left:0}
+  .report{padding:24px}
+  .page-head{align-items:flex-start;gap:10px;flex-direction:column}
+}
+@media print{
+  .sidebar,.header,.report-actions{display:none!important}
+  .main{margin:0}
+  .content{padding:0}
+  body:before,body:after{display:none}
+  .report{border:0;box-shadow:none;max-width:none}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" class="toast hidden"></div>
+<script>
+const demoPatients=[
+{id:"PT-1024",name:"Aarav Mehta",age:29,gender:"Male",blood:"B+",phone:"9876543210",last:"31 Aug 2026",diagnosis:"Acute gastritis",status:"Active"},
+{id:"PT-1025",name:"Isha Shah",age:34,gender:"Female",blood:"O+",phone:"9820123456",last:"30 Aug 2026",diagnosis:"Migraine",status:"Active"},
+{id:"PT-1026",name:"Rohan Kulkarni",age:47,gender:"Male",blood:"A+",phone:"9765432109",last:"29 Aug 2026",diagnosis:"Hypertension",status:"Follow-up"},
+{id:"PT-1027",name:"Ananya Rao",age:22,gender:"Female",blood:"AB+",phone:"9812345678",last:"28 Aug 2026",diagnosis:"Viral fever",status:"Active"},
+{id:"PT-1028",name:"Kabir Joshi",age:56,gender:"Male",blood:"O-",phone:"9898989898",last:"27 Aug 2026",diagnosis:"Type 2 diabetes",status:"Follow-up"},
+{id:"PT-1029",name:"Mira Desai",age:41,gender:"Female",blood:"B+",phone:"9000011111",last:"26 Aug 2026",diagnosis:"Anemia",status:"Active"}
+];
+let patients=JSON.parse(localStorage.getItem("tb_patients")||"null")||demoPatients;
+let currentPatient=patients[0];
+let currentPage="dashboard";
+let caseDraft={};
+const app=document.getElementById("app");
+const toast=document.getElementById("toast");
+function save(){localStorage.setItem("tb_patients",JSON.stringify(patients))}
+function showToast(msg){toast.textContent=msg;toast.classList.remove("hidden");setTimeout(()=>toast.classList.add("hidden"),2200)}
+function initials(name){return name.split(" ").map(x=>x[0]).slice(0,2).join("")}
+function go(page,patient){currentPage=page;if(patient)currentPatient=patient;render()}
+function landing(){return `<div class="landing"><div class="topbar container"><div class="logo"><div class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="1,12 7,12 9.5,5 14,19 16.5,12 23,12"/></svg></div><div>VITALINE<small>PATIENT CASE</small></div></div><div class="navlinks"><a onclick="document.getElementById('features').scrollIntoView()">Features</a><a onclick="document.getElementById('how').scrollIntoView()">How it works</a></div><button class="btn btn-primary" onclick="go('login')">Open Demo</button></div><section class="hero container"><div><span class="eyebrow">SIH 2026 · HEALTH TECH</span><h1>Smarter Patient Case-Taking.<br><span>Better Clinical Records.</span></h1><p>Digitize patient documentation with structured records, faster retrieval and professional case summaries — built for modern clinical workflows.</p><div class="actions"><button class="btn btn-primary" onclick="go('login')">Get Started →</button><button class="btn btn-ghost" onclick="go('login')">View Demo</button></div></div><div class="hero-card"><div class="mini-top"><strong>Clinical overview</strong><span class="mini-stat">Today</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px"><div class="info-box"><small>Patients</small><strong>1,284</strong></div><div class="info-box"><small>Cases today</small><strong>42</strong></div></div><div class="chart"><div class="bars">${[38,55,46,78,64,88,72,96].map(h=>`<div class="bar" style="height:${h}%"></div>`).join("")}</div></div></div></section><section class="features" id="features"><div class="container"><div class="section-title"><h2>Everything needed for a faster clinical workflow</h2><p>One structured workspace from patient registration to case summary.</p></div><div class="feature-grid"><div class="feature"><div class="feature-icon">01</div><h3>Faster Documentation</h3><p>Replace paper case sheets with guided, structured digital forms.</p></div><div class="feature"><div class="feature-icon">02</div><h3>Structured Records</h3><p>Keep history, symptoms, vitals, diagnosis and treatment in one record.</p></div><div class="feature"><div class="feature-icon">03</div><h3>Easy Retrieval & Reports</h3><p>Search patient history instantly and generate print-ready summaries.</p></div></div></div></section><section class="features" id="how" style="padding-top:0"><div class="container"><div class="section-title"><h2>From registration to report</h2><p>Designed around the exact patient case workflow.</p></div><div class="feature-grid"><div class="feature"><h3>1. Register</h3><p>Create a structured patient profile with a unique ID.</p></div><div class="feature"><h3>2. Record</h3><p>Capture history, examination, vitals, diagnosis and treatment.</p></div><div class="feature"><h3>3. Retrieve</h3><p>Search records and generate a professional case summary.</p></div></div></div></section></div>`}
+function login(){return `<div class="login"><div class="login-info"><div class="logo"><div class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="1,12 7,12 9.5,5 14,19 16.5,12 23,12"/></svg></div><div>VITALINE<small style="color:#c7d2fe">PATIENT CASE</small></div></div><h1>Patient Case-Taking System</h1><p>Digitizing clinical documentation for faster, smarter healthcare.</p><div style="margin-top:30px;color:#bfdbfe;font-size:13px">SIH 2026 · Problem Statement 26047</div></div><div class="login-card-wrap"><div class="login-card"><h2>Welcome back</h2><div class="sub">Sign in to your clinical workspace</div><div class="field"><label>Email / Username</label><input id="email" placeholder="doctor@terabyte.demo"></div><div class="field"><label>Password</label><input id="password" type="password" placeholder="••••••••"></div><div class="remember"><label><input type="checkbox"> Remember me</label><a>Forgot password?</a></div><button class="btn btn-primary" style="width:100%" onclick="loginNow()">Sign in</button><button class="btn btn-secondary demo" onclick="demoLogin()">⚡ Continue with Demo Account</button><button class="btn btn-ghost demo" onclick="go('landing')">← Back to website</button></div></div></div>`}
+function loginNow(){showToast("Demo environment: signing you in…");setTimeout(()=>go("dashboard"),350)}
+function demoLogin(){showToast("Demo account loaded");setTimeout(()=>go("dashboard"),250)}
+function shell(content){return `<div class="shell"><aside class="sidebar"><div class="logo"><div class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="1,12 7,12 9.5,5 14,19 16.5,12 23,12"/></svg></div><div><span>VITALINE</span><small>PATIENT CASE</small></div></div><nav class="side-nav">
+<button class="${currentPage==='dashboard'?'active':''}" onclick="go('dashboard')">⌂ <span>Dashboard</span></button>
+<button class="${currentPage==='patients'?'active':''}" onclick="go('patients')">♙ <span>Patients</span></button>
+<button class="${currentPage==='newpatient'?'active':''}" onclick="go('newpatient')">＋ <span>New Patient</span></button>
+<button class="${currentPage==='cases'?'active':''}" onclick="go('cases')">▤ <span>Case Records</span></button>
+<button class="${currentPage==='reports'?'active':''}" onclick="go('reports')">▥ <span>Reports</span></button>
+<button class="${currentPage==='settings'?'active':''}" onclick="go('settings')">⚙ <span>Settings</span></button>
+</nav><div class="profile"><div class="avatar">HD</div><div><strong style="font-size:13px">Dr. Harsh</strong><small>Doctor</small></div></div></aside><main class="main"><header class="header"><div class="search">⌕ <input placeholder="Search patients, cases..." onkeydown="if(event.key==='Enter'){go('patients');setTimeout(()=>{document.getElementById('patientSearch').value=this.value;filterPatients()},50)}"></div><div style="display:flex;align-items:center;gap:18px"><span style="font-size:18px">♢</span><div class="avatar">HD</div></div></header><section class="content">${content}</section></main></div>`}
+function dashboard(){return shell(`<div class="page-head"><div><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px rgba(46,230,166,.18)"></span><span style="font-size:11px;font-weight:800;color:var(--mint);letter-spacing:.7px">SYSTEM ONLINE</span></div><h1>Good morning, Dr. Harsh 👋</h1><p>Here's what's happening with your patient records today.</p></div><button class="btn btn-primary" onclick="go('newpatient')">＋ Register Patient</button></div><div class="stats"><div class="stat"><div class="label">TOTAL PATIENTS</div><div class="num">${patients.length}</div><div class="delta">↑ 8.2% this month</div></div><div class="stat"><div class="label">TODAY'S CONSULTATIONS</div><div class="num">24</div><div class="delta">↑ 12% vs yesterday</div></div><div class="stat"><div class="label">PENDING CASES</div><div class="num">7</div><div class="delta" style="color:var(--amber)">Needs attention</div></div><div class="stat"><div class="label">REPORTS GENERATED</div><div class="num">86</div><div class="delta">↑ 14 this week</div></div></div><div class="grid2"><div class="panel"><div style="display:flex;justify-content:space-between;align-items:center"><h3>Recent Patients</h3><button class="btn btn-ghost" onclick="go('patients')">View all</button></div><div class="table-wrap"><table class="table"><thead><tr><th>Patient</th><th>ID</th><th>Age / Gender</th><th>Last Visit</th><th>Diagnosis</th><th>Status</th></tr></thead><tbody>${patients.slice(0,5).map(p=>`<tr onclick='go("profile",patients[${patients.indexOf(p)}])' style="cursor:pointer"><td><strong>${p.name}</strong></td><td>${p.id}</td><td>${p.age} / ${p.gender}</td><td>${p.last}</td><td>${p.diagnosis}</td><td><span class="status ${p.status==='Active'?'green':'orange'}">${p.status}</span></td></tr>`).join("")}</tbody></table></div></div><div class="panel"><h3>Quick Actions</h3><div class="quick"><button onclick="go('newpatient')">＋ Register New Patient <span class="muted">→</span></button><button onclick="go('newcase',currentPatient)">✎ Start New Case <span class="muted">→</span></button><button onclick="go('patients')">⌕ Search Patient <span class="muted">→</span></button><button onclick="go('report',currentPatient)">▥ Generate Report <span class="muted">→</span></button></div><h3 style="margin-top:25px">Recent Activity</h3><div class="activity"><div class="activity-item"><span class="dot"></span><div><strong>New patient registered</strong><br><span class="muted">Aarav Mehta · 8 min ago</span></div></div><div class="activity-item"><span class="dot"></span><div><strong>Case record updated</strong><br><span class="muted">Isha Shah · 24 min ago</span></div></div><div class="activity-item"><span class="dot"></span><div><strong>Report generated</strong><br><span class="muted">Rohan Kulkarni · 1 hr ago</span></div></div></div></div></div>`)}
+function newpatient(){return shell(`<div class="page-head"><div><h1>Register New Patient</h1><p>Create a structured patient profile.</p></div></div><div class="form-panel"><h3>Personal Information</h3><div class="form-grid"><div class="field"><label>Patient ID</label><input id="npid" value="PT-${1030+patients.length}" readonly></div><div class="field"><label>Full Name *</label><input id="npname" placeholder="Enter patient name"></div><div class="field"><label>Date of Birth</label><input id="npdob" type="date"></div><div class="field"><label>Age *</label><input id="npage" type="number" min="0" placeholder="Age"></div><div class="field"><label>Gender *</label><select id="npgender"><option value="">Select gender</option><option>Male</option><option>Female</option><option>Other</option></select></div><div class="field"><label>Blood Group</label><select id="npblood"><option>Not specified</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div><div class="field"><label>Phone Number *</label><input id="npphone" placeholder="10-digit phone number"></div><div class="field"><label>Email</label><input id="npemail" type="email" placeholder="patient@example.com"></div><div class="field full"><label>Address</label><input id="npaddress" placeholder="Residential address"></div><div class="field full"><label>Emergency Contact</label><input id="npemergency" placeholder="Name and phone number"></div></div></div><div class="form-panel"><h3>Additional Information</h3><div class="form-grid"><div class="field"><label>Allergies</label><textarea id="npa" placeholder="Drug, food or other allergies"></textarea></div><div class="field"><label>Existing Medical Conditions</label><textarea id="npm" placeholder="Known conditions"></textarea></div><div class="field full"><label>Current Medications</label><textarea id="npmx" placeholder="List current medications"></textarea></div></div></div><div class="form-actions"><button class="btn btn-ghost" onclick="go('dashboard')">Cancel</button><button class="btn btn-secondary" onclick="savePatient(false)">Save Patient</button><button class="btn btn-primary" onclick="savePatient(true)">Save & Start Case</button></div>`)}
+function savePatient(start){let name=document.getElementById("npname").value.trim(),age=document.getElementById("npage").value,gender=document.getElementById("npgender").value,phone=document.getElementById("npphone").value.trim();if(!name||!age||!gender||!phone){showToast("Please complete all required fields");return}let p={id:document.getElementById("npid").value,name,age:Number(age),gender,blood:document.getElementById("npblood").value,phone,last:"31 Aug 2026",diagnosis:"New case",status:"Active"};patients.unshift(p);save();currentPatient=p;showToast("Patient registered successfully");setTimeout(()=>go(start?"newcase":"profile",p),250)}
+function patientsPage(){return shell(`<div class="page-head"><div><h1>Patients</h1><p>Search and manage digital patient records.</p></div><button class="btn btn-primary" onclick="go('newpatient')">＋ New Patient</button></div><div class="panel"><div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap"><div class="search" style="width:320px"><span>⌕</span><input id="patientSearch" placeholder="Name, ID, phone or diagnosis" oninput="filterPatients()"></div><select id="genderFilter" class="btn btn-ghost" onchange="filterPatients()"><option value="">All genders</option><option>Male</option><option>Female</option><option>Other</option></select><select id="statusFilter" class="btn btn-ghost" onchange="filterPatients()"><option value="">All status</option><option>Active</option><option>Follow-up</option></select></div><div class="table-wrap"><table class="table"><thead><tr><th>Patient</th><th>Patient ID</th><th>Age</th><th>Gender</th><th>Blood</th><th>Last Visit</th><th>Diagnosis</th><th>Status</th><th>Action</th></tr></thead><tbody id="patientRows">${patientRows(patients)}</tbody></table></div></div>`)}
+function patientRows(list){return list.map((p,i)=>`<tr><td><strong>${p.name}</strong></td><td>${p.id}</td><td>${p.age}</td><td>${p.gender}</td><td>${p.blood}</td><td>${p.last}</td><td>${p.diagnosis}</td><td><span class="status ${p.status==='Active'?'green':'orange'}">${p.status}</span></td><td><button class="btn btn-ghost" onclick='go("profile",patients[${patients.indexOf(p)}])'>View</button></td></tr>`).join("")}
+function filterPatients(){let q=(document.getElementById("patientSearch")?.value||"").toLowerCase(),g=document.getElementById("genderFilter")?.value||"",s=document.getElementById("statusFilter")?.value||"";let list=patients.filter(p=>(!q||Object.values(p).join(" ").toLowerCase().includes(q))&&(!g||p.gender===g)&&(!s||p.status===s));document.getElementById("patientRows").innerHTML=patientRows(list)}
+function profile(p=currentPatient){return shell(`<div class="patient-header"><div class="patient-main"><div class="big-avatar">${initials(p.name)}</div><div><h1 style="margin:0 0 5px;font-size:25px">${p.name}</h1><div class="muted">${p.id} · ${p.age} years · ${p.gender} · ${p.blood}</div><div class="muted" style="margin-top:4px">${p.phone}</div></div></div><div style="display:flex;gap:8px"><button class="btn btn-ghost" onclick="go('report',currentPatient)">Generate Report</button><button class="btn btn-primary" onclick="go('newcase',currentPatient)">＋ New Case</button></div></div><div class="tabs"><button class="active">Overview</button><button>Medical History</button><button>Case Records</button><button>Reports</button></div><div style="margin-top:20px" class="cards"><div class="info-box"><small>Patient ID</small><strong>${p.id}</strong></div><div class="info-box"><small>Blood Group</small><strong>${p.blood}</strong></div><div class="info-box"><small>Last Visit</small><strong>${p.last}</strong></div></div><div class="grid2"><div class="panel"><h3>Latest Case Record</h3><div class="info-box"><small>Chief Complaint</small><strong>${p.diagnosis==='New case'?'No case recorded yet':'Abdominal discomfort and nausea'}</strong><p class="muted">History: Symptoms started recently. Clinical history is stored in structured fields.</p><button class="btn btn-secondary" onclick="go('newcase',currentPatient)">Open Case</button></div></div><div class="panel"><h3>Patient Information</h3><div class="activity"><div><small class="muted">Phone</small><br><strong>${p.phone}</strong></div><div><small class="muted">Status</small><br><span class="status green">${p.status}</span></div><div><small class="muted">Emergency contact</small><br><strong>Available in record</strong></div></div></div></div>`)}
+function newcase(p=currentPatient){currentPatient=p;return shell(`<div class="page-head"><div><h1>New Patient Case</h1><p>Structured clinical documentation for <strong>${p.name}</strong> · ${p.id}</p></div></div><div class="stepper"><span class="step active">1 Patient</span><span class="step active">2 History</span><span class="step active">3 Examination</span><span class="step">4 Diagnosis</span><span class="step">5 Treatment</span><span class="step">6 Review</span></div><div class="form-panel"><h3>A. Chief Complaint</h3><div class="form-grid"><div class="field"><label>Main complaint *</label><input id="cc" placeholder="e.g. Headache, abdominal pain"></div><div class="field"><label>Duration</label><input id="duration" placeholder="e.g. 3 days"></div><div class="field"><label>Severity</label><select id="severity"><option>Mild</option><option>Moderate</option><option>Severe</option></select></div><div class="field"><label>Additional symptoms</label><input id="symptoms" placeholder="Associated symptoms"></div><div class="field full"><label>History of Present Illness</label><textarea id="history" placeholder="Describe onset, progression and relevant clinical history"></textarea></div></div></div><div class="form-panel"><h3>B. Medical & Family History</h3><div class="form-grid"><div class="field"><label>Previous illnesses</label><textarea id="illness"></textarea></div><div class="field"><label>Previous surgeries / hospitalizations</label><textarea id="surgery"></textarea></div><div class="field"><label>Chronic conditions</label><textarea id="chronic"></textarea></div><div class="field"><label>Family history</label><textarea id="family"></textarea></div></div></div><div class="form-panel"><h3>C. Personal / Social History</h3><div class="form-grid"><div class="field"><label>Smoking</label><select id="smoking"><option>No</option><option>Yes</option><option>Former</option></select></div><div class="field"><label>Alcohol</label><select id="alcohol"><option>No</option><option>Yes</option><option>Occasional</option></select></div><div class="field"><label>Diet</label><input id="diet" placeholder="Diet pattern"></div><div class="field"><label>Occupation</label><input id="occupation" placeholder="Occupation"></div><div class="field full"><label>Lifestyle</label><textarea id="lifestyle"></textarea></div></div></div><div class="form-panel"><h3>D. Current Medications & Allergies</h3><div id="medRows"><div class="two med-row"><div class="field"><label>Medicine name</label><input placeholder="Medicine"></div><div class="field"><label>Dosage / Frequency / Duration</label><input placeholder="e.g. 500mg · twice daily · 5 days"></div></div></div><button class="btn btn-ghost" onclick="addMed()">＋ Add medication</button><div class="form-grid" style="margin-top:18px"><div class="field"><label>Drug allergies</label><input id="drugallergy"></div><div class="field"><label>Food / other allergies</label><input id="foodallergy"></div></div></div><div class="form-panel"><h3>E. Vital Signs</h3><div class="form-grid"><div class="field"><label>Temperature</label><input id="temp" placeholder="°C"></div><div class="field"><label>Blood Pressure</label><input id="bp" placeholder="mmHg"></div><div class="field"><label>Heart Rate</label><input id="hr" placeholder="bpm"></div><div class="field"><label>Respiratory Rate</label><input id="rr" placeholder="/min"></div><div class="field"><label>SpO2</label><input id="spo2" placeholder="%"></div><div class="field"><label>Weight</label><input id="weight" placeholder="kg"></div><div class="field"><label>Height</label><input id="height" placeholder="cm"></div></div></div><div class="form-panel"><h3>F. Examination, Diagnosis & Treatment</h3><div class="form-grid"><div class="field"><label>General examination</label><textarea id="general"></textarea></div><div class="field"><label>Systemic examination</label><textarea id="systemic"></textarea></div><div class="field full"><label>Other observations</label><textarea id="observations"></textarea></div><div class="field"><label>Preliminary diagnosis *</label><input id="diagnosis" placeholder="Diagnosis"></div><div class="field"><label>Differential diagnosis</label><input id="differential"></div><div class="field full"><label>Doctor's clinical notes</label><textarea id="notes"></textarea></div><div class="field"><label>Treatment</label><textarea id="treatment"></textarea></div><div class="field"><label>Tests recommended</label><textarea id="tests"></textarea></div><div class="field"><label>Follow-up date</label><input id="followup" type="date"></div><div class="field"><label>Additional instructions</label><textarea id="instructions"></textarea></div></div></div><div class="form-actions"><button class="btn btn-ghost" onclick="go('profile',currentPatient)">Cancel</button><button class="btn btn-secondary" onclick="saveCase(false)">Save Case</button><button class="btn btn-primary" onclick="saveCase(true)">Save & Generate Report</button></div>`)}
+function addMed(){document.getElementById("medRows").insertAdjacentHTML("beforeend",`<div class="two med-row"><div class="field"><label>Medicine name</label><input placeholder="Medicine"></div><div class="field"><label>Dosage / Frequency / Duration</label><input placeholder="e.g. 500mg · twice daily · 5 days"></div></div>`)}
+function saveCase(report){let cc=document.getElementById("cc").value.trim(),dx=document.getElementById("diagnosis").value.trim();if(!cc||!dx){showToast("Please enter complaint and diagnosis");return}caseDraft={cc,duration:duration.value,severity:severity.value,symptoms:symptoms.value,history:history.value,illness:illness.value,surgery:surgery.value,chronic:chronic.value,family:family.value,smoking:smoking.value,alcohol:alcohol.value,diet:diet.value,occupation:occupation.value,lifestyle:lifestyle.value,drugallergy:drugallergy.value,foodallergy:foodallergy.value,temp:temp.value,bp:bp.value,hr:hr.value,rr:rr.value,spo2:spo2.value,weight:weight.value,height:height.value,general:general.value,systemic:systemic.value,observations:observations.value,diagnosis:dx,differential:differential.value,notes:notes.value,treatment:treatment.value,tests:tests.value,followup:followup.value,instructions:instructions.value};currentPatient.diagnosis=dx;currentPatient.last="31 Aug 2026";save();showToast("Case saved successfully");setTimeout(()=>go(report?"report":"profile",currentPatient),300)}
+function report(p=currentPatient){let d=caseDraft;return shell(`<div class="report-actions"><button class="btn btn-ghost" onclick="go('profile',currentPatient)">← Back to Patient</button><button class="btn btn-primary" onclick="window.print()">🖨 Print Report</button></div><div class="report"><div class="report-head"><div><div class="logo"><div class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="1,12 7,12 9.5,5 14,19 16.5,12 23,12"/></svg></div><div>VITALINE<small>PATIENT CASE</small></div></div><h2 style="margin-top:20px">Clinical Case Summary</h2></div><div style="text-align:right;font-size:12px;color:#667085">Case date<br><strong>31 Aug 2026</strong></div></div><div class="cards" style="grid-template-columns:repeat(4,1fr)"><div class="info-box"><small>Patient ID</small><strong>${p.id}</strong></div><div class="info-box"><small>Name</small><strong>${p.name}</strong></div><div class="info-box"><small>Age / Gender</small><strong>${p.age} / ${p.gender}</strong></div><div class="info-box"><small>Blood Group</small><strong>${p.blood}</strong></div></div>${reportSection("Chief Complaint",d.cc||"No case data yet.")}${reportSection("History of Present Illness",d.history||"Not recorded.")}${reportSection("Past Medical History",d.illness||"Not recorded.")}${reportSection("Family History",d.family||"Not recorded.")}${reportSection("Personal History",(d.smoking?`Smoking: ${d.smoking}. `:"")+(d.alcohol?`Alcohol: ${d.alcohol}. `:"")+(d.diet?`Diet: ${d.diet}. `:"")+(d.occupation?`Occupation: ${d.occupation}.`:"")||"Not recorded.")}${reportSection("Allergies",`${d.drugallergy||"No drug allergy recorded"}; ${d.foodallergy||"No food/other allergy recorded"}`)}${reportSection("Vital Signs",`Temperature: ${d.temp||"—"} · BP: ${d.bp||"—"} · HR: ${d.hr||"—"} · RR: ${d.rr||"—"} · SpO2: ${d.spo2||"—"} · Weight: ${d.weight||"—"} · Height: ${d.height||"—"}`)}${reportSection("Physical Examination",(d.general||"General exam not recorded.")+" "+(d.systemic||""))}${reportSection("Diagnosis",d.diagnosis||p.diagnosis)}${reportSection("Treatment Plan",d.treatment||"Not recorded.")}${reportSection("Follow-up",d.followup||"Not specified.")}<div style="margin-top:50px;padding-top:18px;border-top:1px solid #ddd;display:flex;justify-content:space-between"><div><strong>Dr. Harsh Dwivedi</strong><br><span class="muted">Doctor</span></div><div style="width:180px;border-top:1px solid #333;text-align:center;padding-top:6px">Signature</div></div></div>`)}
+function reportSection(title,text){return `<div class="report-section"><h4>${title}</h4><p>${text||"Not recorded."}</p></div>`}
+function casesPage(){return shell(`<div class="page-head"><div><h1>Case Records</h1><p>Searchable clinical case history.</p></div></div><div class="panel"><div class="search" style="width:330px;margin-bottom:18px">⌕ <input placeholder="Search case, patient or diagnosis"></div><div class="table-wrap"><table class="table"><thead><tr><th>Case ID</th><th>Patient</th><th>Date</th><th>Doctor</th><th>Chief Complaint</th><th>Diagnosis</th><th>Status</th><th>Actions</th></tr></thead><tbody>${patients.map((p,i)=>`<tr><td>CASE-${2400+i}</td><td><strong>${p.name}</strong></td><td>${p.last}</td><td>Dr. Harsh</td><td>${p.diagnosis==='New case'?'Pending assessment':'Clinical consultation'}</td><td>${p.diagnosis}</td><td><span class="status green">Recorded</span></td><td><button class="btn btn-ghost" onclick='go("profile",patients[${i}])'>View</button></td></tr>`).join("")}</tbody></table></div></div>`)}
+function reportsPage(){return shell(`<div class="page-head"><div><h1>Reports</h1><p>Generate and print professional case summaries.</p></div></div><div class="panel"><table class="table"><thead><tr><th>Report</th><th>Patient</th><th>Date</th><th>Type</th><th>Action</th></tr></thead><tbody>${patients.slice(0,5).map((p,i)=>`<tr><td><strong>Clinical Case Summary</strong></td><td>${p.name}</td><td>${p.last}</td><td>Patient case</td><td><button class="btn btn-primary" onclick='go("report",patients[${i}])'>Open Report</button></td></tr>`).join("")}</tbody></table></div>`)}
+function settings(){return shell(`<div class="page-head"><div><h1>Settings</h1><p>Manage profile, preferences and security.</p></div></div><div class="grid2"><div class="panel"><h3>Profile</h3><div class="field"><label>Name</label><input value="Dr. Harsh Dwivedi"></div><div class="field"><label>Email</label><input value="doctor@terabyte.demo"></div><div class="field"><label>Role</label><select><option>Doctor</option><option>Clinical Staff</option></select></div><div class="field"><label>Department</label><input value="General Medicine"></div><button class="btn btn-primary" onclick="showToast('Profile preferences saved')">Save Changes</button></div><div class="panel"><h3>Security</h3><div class="info-box"><small>Role-based access</small><strong>Doctor</strong><p class="muted">Demo access is configured for the hackathon prototype.</p></div><div class="info-box" style="margin-top:12px"><small>Session status</small><strong style="color:var(--success)">Active</strong></div><div class="info-box" style="margin-top:12px"><small>Last login</small><strong>31 Aug 2026 · 09:32</strong></div><button class="btn btn-ghost" style="margin-top:14px" onclick="go('landing')">Log out</button></div></div>`)}
+function render(){if(currentPage==="landing")app.innerHTML=landing();else if(currentPage==="login")app.innerHTML=login();else if(currentPage==="dashboard")app.innerHTML=dashboard();else if(currentPage==="newpatient")app.innerHTML=newpatient();else if(currentPage==="patients")app.innerHTML=patientsPage();else if(currentPage==="profile")app.innerHTML=profile(currentPatient);else if(currentPage==="newcase")app.innerHTML=newcase(currentPatient);else if(currentPage==="report")app.innerHTML=report(currentPatient);else if(currentPage==="cases")app.innerHTML=casesPage();else if(currentPage==="reports")app.innerHTML=reportsPage();else if(currentPage==="settings")app.innerHTML=settings()}
+render();
+</script>
+</body>
+</html>
